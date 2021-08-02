@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>for-loop | Roberto Supe</title>
+    <link>/tags/for-loop/</link>
+      <atom:link href="/tags/for-loop/index.xml" rel="self" type="application/rss+xml" />
+    <description>for-loop</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Roberto Supe 2021</copyright><lastBuildDate>Sat, 08 May 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/uq.jpg</url>
+      <title>for-loop</title>
+      <link>/tags/for-loop/</link>
+    </image>
+    
+    <item>
+      <title>Create folders and files with for-loop</title>
+      <link>/post/2021-05-08-create-folder/</link>
+      <pubDate>Sat, 08 May 2021 00:00:00 +0000</pubDate>
+      <guid>/post/2021-05-08-create-folder/</guid>
+      <description>&lt;p&gt;As an environmentalist, I have worked with historical data and modeling. Some programs will need you to have individual folders and individual data files with certain extensions for each day, month, year, or study location that you want to analyze. What if your data is in a single file 🤯. Making 10files will be ok, but 2000 will take a while nonetheless; thanks to the power of R, we can do that in a few minutes ⏱.&lt;/p&gt;
+&lt;p&gt;What you will learn:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For-loops&lt;/li&gt;
+&lt;li&gt;Work with excel files&lt;/li&gt;
+&lt;li&gt;Create folder&lt;/li&gt;
+&lt;li&gt;Subset data&lt;/li&gt;
+&lt;li&gt;Write and save text files&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;h2 id=&#34;libraries&#34;&gt;Libraries&lt;a href=&#34;#libraries&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Generally, I like to work with CSV or TXT files. Nonetheless, it is common to have data in excel files. To avoid changing the format, I will use the package &lt;code&gt;readxl&lt;/code&gt; to import .xlsx files.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#install.packages(&amp;quot;readxl&amp;quot;)
+library(readxl)
+library(tidyverse)
+library(utils)
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;excel-files&#34;&gt;Excel files&lt;a href=&#34;#excel-files&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The example file will have two locations, one sheet for each site. For each area, there are multiple variables with daily data between 1979 and 2100. You can get the &lt;a href=&#34;/post/climate_data.xlsx&#34; target=&#34;_blank&#34;&gt;Dataset for this tutorial&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Objective: Have individual text files for each year and locations stored in the corresponding year folder.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+
+&lt;h3 id=&#34;read-excel-files&#34;&gt;Read excel files&lt;a href=&#34;#read-excel-files&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s begin by reading the file&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;data&amp;lt;- readxl::read_excel(&amp;quot;climate_data.xlsx&amp;quot;,sheet = 1,skip = 0)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With the &lt;code&gt;read_excel&lt;/code&gt; you can specify the sheet as well as skip a few rows.&lt;/p&gt;
+
+
+
+&lt;h3 id=&#34;subset-your-data&#34;&gt;Subset your data&lt;a href=&#34;#subset-your-data&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Now, we need to filter the data. We will select the first 4 columns and data from 2000.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dt1 &amp;lt;- dplyr::filter(data[,1:4],Year==2002) #if you get some problems when filtering years, you can use Year=factor(year)
+head(dt1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 4
+##   Year  Day   Maxtemp Mintemp
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;
+## 1 2002  1       -15.6   -23.2
+## 2 2002  2       -14.7   -21.5
+## 3 2002  3       -11     -18.3
+## 4 2002  4       -11.2   -19.4
+## 5 2002  5       -11.2   -18  
+## 6 2002  6        -8.3   -17.5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are many ways to subset your data, but one of the most straightforward ways is using &lt;code&gt;filter&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt;. As I did with data[,1:4], this specifies the dimensions that I want to use data[rows,collumns]. Tip: To remember which one goes first, think of a &lt;span style=&#34;color: red;&#34;&gt;&lt;strong&gt;R&lt;/strong&gt;ed &lt;strong&gt;C&lt;/strong&gt;hicken&lt;/span&gt; (&lt;span style=&#34;color: red;&#34;&gt;&lt;strong&gt;R&lt;/strong&gt;&lt;/span&gt;ows, &lt;span style=&#34;color: red;&#34;&gt;&lt;strong&gt;C&lt;/strong&gt;&lt;/span&gt;olumns).&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This is also one of my favorite packages because you can integrate extended code for data analysis and prosses.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now that we selected our year, we can write the text file that we need.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;write.table(dt1[,2:4], #remove additional variables from your filtered data
+            file=&amp;quot;station_1_year_2000.txt&amp;quot;, #filemane of your file. 
+            #if nested folders then add the folder_name/file_name for each file
+            col.names=T,row.names = F,quote = FALSE) #remove all the row.names and &amp;quot; &amp;quot; from col.names 
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;for-loop&#34;&gt;For-loop&lt;a href=&#34;#for-loop&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;As I said before, we will have many years and locations, so we want to run that for all our data. When something is the same repeated, then for-loops are a great alternative.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;study_year&amp;lt;-min(data$Year):max(data$Year) #store all the years in a new vector
+tail(study_year) # have a look at last five variables
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 2095 2096 2097 2098 2099 2100
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h3 id=&#34;create-folders&#34;&gt;Create folders&lt;a href=&#34;#create-folders&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s create our folders and have a simple example of what we will do with the for-loop. The structure that we need to follow is this &lt;code&gt;for (variable in vector)&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#for (variable in vector) 
+for(year in # year can be any text
+    study_year[1:2]){ #our vector
+  print(as.character(year)) # show me which year the loop is running
+  dir.create(path = paste(year)) # create the folder named by year
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h3 id=&#34;magic&#34;&gt;Magic&lt;a href=&#34;#magic&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;It is common to use guides with for-loops to know which iteration the loop is doing; I used &lt;code&gt;print&lt;/code&gt; to display a message.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;for (j in 1:2) {  # how many pages you have 1:n pages
+  data&amp;lt;-readxl::read_excel(&amp;quot;climate_data.xlsx&amp;quot;,sheet = j)
+  filename = paste(&amp;quot;station &amp;quot;,j,&amp;quot;.txt&amp;quot;,sep = &amp;quot;&amp;quot;) #file name for each i year
+
+  for (i in c(1:length(study_year))){ #i in as many years we got
+  dt1 &amp;lt;- dplyr::filter(data[,1:4],Year==study_year[i]) #filter the data
+  write.table(dt1[,2:4], #remove additional variables from your filtered data
+            file=&amp;quot;station_1_year_2000.txt&amp;quot;, #filemane of your file. 
+            #if nested folders then add the folder_name/file_name for each file
+            col.names=T,row.names = F,quote = FALSE) #remove all the row.names and &amp;quot; &amp;quot; from col.names 
+  print(paste(&amp;quot;done with year&amp;quot;,study_year[i],&amp;quot;Station&amp;quot;,j)) # message
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;a href=&#34;#summary&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Writing files is easy with R and will save you a lot of time. Some of the take away messages and points to follow are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Read your long files 📚.&lt;/li&gt;
+&lt;li&gt;Filter your information 📋.&lt;/li&gt;
+&lt;li&gt;Create folders 📂.&lt;/li&gt;
+&lt;li&gt;Use a for-loop to filter and save to the right folder ✅.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;These were some of the steps that I followed to create over 2000 files. You can replace the extension make sure to change the function, e.g., write.csv(). Hopefully, you have a long data set and you need to create new files soon. You got it under control, and it will just take a few minutes. If you liked this post, share it with your friends and on your social media. Constantly check my page for more practical and efficient R tutorials 👏.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

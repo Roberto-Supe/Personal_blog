@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ibrahim Robinson Kargbo | Roberto Supe</title>
+    <link>/authors/ibrahim-robinson-kargbo/</link>
+      <atom:link href="/authors/ibrahim-robinson-kargbo/index.xml" rel="self" type="application/rss+xml" />
+    <description>Ibrahim Robinson Kargbo</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Roberto Supe 2021</copyright><lastBuildDate>Wed, 18 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/uq.jpg</url>
+      <title>Ibrahim Robinson Kargbo</title>
+      <link>/authors/ibrahim-robinson-kargbo/</link>
+    </image>
+    
+    <item>
+      <title>Plant diversity and regeneration potentials in protected area forests of Sierra Leone</title>
+      <link>/publication/2021-05-04-sl-forests/</link>
+      <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>/publication/2021-05-04-sl-forests/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

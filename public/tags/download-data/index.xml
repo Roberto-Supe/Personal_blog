@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>download data | Roberto Supe</title>
+    <link>/tags/download-data/</link>
+      <atom:link href="/tags/download-data/index.xml" rel="self" type="application/rss+xml" />
+    <description>download data</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Roberto Supe 2021</copyright><lastBuildDate>Thu, 06 May 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/uq.jpg</url>
+      <title>download data</title>
+      <link>/tags/download-data/</link>
+    </image>
+    
+    <item>
+      <title>Automated Data Download</title>
+      <link>/post/2021-05-06-download-data/</link>
+      <pubDate>Thu, 06 May 2021 00:00:00 +0000</pubDate>
+      <guid>/post/2021-05-06-download-data/</guid>
+      <description>&lt;p&gt;One of the advantages of R is the ability to get resources directly from source pages. This post will show you some helpful code when you want to get many files from web pages, saving a lot of time and structure everything nicely.&lt;/p&gt;
+&lt;p&gt;What you will learn&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Download pages&lt;/li&gt;
+&lt;li&gt;Create files&lt;/li&gt;
+&lt;li&gt;Replace text&lt;/li&gt;
+&lt;li&gt;Unzip folders&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;h2 id=&#34;libraries&#34;&gt;Libraries&lt;a href=&#34;#libraries&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;There are over 100k packages in R. I will use the &lt;strong&gt;pacman&lt;/strong&gt; package to load multiple libraries inside the function.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#install.packages(pacman)
+#install.packages(purrr)
+pacman::p_load(purrr) #raster, rgdal, rgeos, stringr
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s find a database. For this example, we will use rainfall data from 
+&lt;a href=&#34;&#34;&gt;chirps&lt;/a&gt;. All my files have links following a pattern, thus making this example plausible. We will identify those similar elements and replace them accordingly.&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;download-a-file&#34;&gt;Download a file&lt;a href=&#34;#download-a-file&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s begin by downloading the following file:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/1987/chirps-v2.0.1987.01.04.tif.gz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We will use the function download.file from utils. If you check its documentation, type &lt;code&gt;?download.file&lt;/code&gt; in your console, the window will say: &lt;em&gt;This function can be used to download a file from the Internet&lt;/em&gt;. Exactly what we want; now we need to add a few elements to make it work &lt;code&gt;url&lt;/code&gt; and &lt;code&gt;destfile&lt;/code&gt; at least.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;file_url &amp;lt;- &amp;quot;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/1982/chirps-v2.0.1982.01.01.tif.gz&amp;quot;
+# file_url &amp;lt;- paste0(&amp;quot;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/&amp;quot;,
+#                    &amp;quot;1998/chirps-v2.0.1998.02.11.tif.gz&amp;quot;)
+download.file(url = file_url,
+              destfile = basename(file_url))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I added two &lt;code&gt;file_url&lt;/code&gt; options; there may be some error if you use the full link. If you do, then paste text without spaces, &lt;code&gt;paste0()&lt;/code&gt;, to build the link.&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;multiple-files&#34;&gt;Multiple files&lt;a href=&#34;#multiple-files&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Our objective is to get multiple files; it could be months, days, or years of data. Then we can follow these steps:&lt;/p&gt;
+
+
+
+&lt;h3 id=&#34;identify-similarities&#34;&gt;Identify similarities&lt;a href=&#34;#identify-similarities&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Identify what is similar for all those paths and store that information as a vector; here, I used &lt;code&gt;pth&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;pth &amp;lt;- &#39;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h3 id=&#34;identify--differences&#34;&gt;Identify  differences&lt;a href=&#34;#identify--differences&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;We see that years and dates are different among files, so we want to create a vector that stores all those values with &lt;code&gt;.&lt;/code&gt; and &lt;code&gt;-&lt;/code&gt; as required.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;year=2016
+dates &amp;lt;- seq(as.Date(paste0(year, &amp;quot;-01-01&amp;quot;)), as.Date(paste0(year, &amp;quot;-12-31&amp;quot;)), by=&amp;quot;days&amp;quot;)
+dates = gsub(pattern = &#39;-&#39;, replacement = &#39;.&#39;, x = as.character(dates))
+data_source&amp;lt;-&#39;/chirps-v2.0.&#39;
+file_extension&amp;lt;-&#39;.tif.gz&#39;
+# join all the parts to have the final links
+paths &amp;lt;- paste0(pth, year, data_source, dates, file_extension)
+head(paths,2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/2016/chirps-v2.0.2016.01.01.tif.gz&amp;quot;
+## [2] &amp;quot;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/2016/chirps-v2.0.2016.01.02.tif.gz&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Our links are ready so that we can place them inside the previous function.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;download.file(url = paths,
+              destfile = basename(file_url))
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;function&#34;&gt;Function&lt;a href=&#34;#function&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;We could have many years to build a function to make sure we have the correct files for each year.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Date vector with seq and as.Date&lt;/li&gt;
+&lt;li&gt;Replace strings with gsub&lt;/li&gt;
+&lt;li&gt;Join vectors and strings with paste0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;download_Online_data &amp;lt;- function(year){
+  #print(year) # leave some guides so you know which year, file
+  dates &amp;lt;- seq(as.Date(paste0(year, &amp;quot;-01-01&amp;quot;)), as.Date(paste0(year, &amp;quot;-12-31&amp;quot;)), by=&amp;quot;days&amp;quot;)
+  dates &amp;lt;- gsub(&#39;-&#39;, &#39;.&#39;, as.character(dates))
+  paths &amp;lt;- paste0(pth, year, &#39;/chirps-v2.0.&#39;, dates, &#39;.tif.gz&#39;)
+  
+  lapply(1:length(paths), function(k){
+    download.file(url = paths[k],
+                  destfile = paste0(&#39;.&#39;, basename(paths[k]))) # for this page do not add w as type=&amp;quot;w&amp;quot; it will 
+  })
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h3 id=&#34;selected-data&#34;&gt;Selected data&lt;a href=&#34;#selected-data&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s test the above function to get daily data files between 1990 and 2020&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;year &amp;lt;- 1990:2020
+purrr::map(.x = year, .f = download_Online_data)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You will get a new window and the R will get you the files you need.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;To unzip these files use the following:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;R.utils::gunzip(&amp;quot;path/file_name&amp;quot;, remove = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;a href=&#34;#summary&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Find your links and check their structure 🔗.&lt;/li&gt;
+&lt;li&gt;Create vectors that are match the required links 📁.&lt;/li&gt;
+&lt;li&gt;Use download.file to get your data ⬇	.&lt;/li&gt;
+&lt;li&gt;Add everything into a function to get all the data you need 🔁	.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;These were some of the steps that I followed to get rainfall data from 
+&lt;a href=&#34;https://www.chc.ucsb.edu/data/chirps&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CHIRPS&lt;/a&gt;. Multiple databases will have similar structures; you got some ideas to stop clicking every link you need 💡	. If you liked this post, share it with your friends and on your social media. Constantly check my page for more practical and efficient R tutorials.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

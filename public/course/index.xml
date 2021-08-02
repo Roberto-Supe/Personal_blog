@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Courses | Roberto Supe</title>
+    <link>/course/</link>
+      <atom:link href="/course/index.xml" rel="self" type="application/rss+xml" />
+    <description>Courses</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Roberto Supe 2021</copyright><lastBuildDate>Wed, 05 May 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/uq.jpg</url>
+      <title>Courses</title>
+      <link>/course/</link>
+    </image>
+    
+    <item>
+      <title>📊 Environmental Statistics</title>
+      <link>/course/2021-05-05-statistics/</link>
+      <pubDate>Wed, 05 May 2021 00:00:00 +0000</pubDate>
+      <guid>/course/2021-05-05-statistics/</guid>
+      <description>
+
+
+&lt;h2 id=&#34;what-did-we-covere&#34;&gt;What did we covere&lt;a href=&#34;#what-did-we-covere&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Fundamental &lt;span class=&#34;markup-quote&#34;&gt;Linear models&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;markup-quote&#34;&gt;Statistical concepts&lt;/span&gt; and how to apply them in practice.&lt;/li&gt;
+&lt;li&gt;Gain experience with &lt;span class=&#34;markup-quote&#34;&gt;R&lt;/span&gt;, including data visualization with &lt;span class=&#34;markup-quote&#34;&gt;ggplot2 and Plotly&lt;/span&gt; and data wrangling with &lt;span class=&#34;markup-quote&#34;&gt;Dplyr&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;h2 id=&#34;program-overview&#34;&gt;Program overview&lt;a href=&#34;#program-overview&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;This site was built to provide additional information and content to the lecture slides of the course Environmental Statistics at Beijing Normal University. Similarly, lecture plots were converted into R with the code used for the graphs included in the posts. It is a page created for you to be familiar with R-Studio and very important packages that will help you during your studies and career. All the information in the articles followed the lecture topics of 
+&lt;a href=&#34;https://www.researchgate.net/profile/Yingxia-Li&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Professor Yingxia Li&lt;/a&gt;. The information, figures, and models were added to the page by &lt;a href=&#34;/authors/admin/&#34;&gt;Roberto Supe&lt;/a&gt; .&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;meet-your-instructor&#34;&gt;Meet your instructor&lt;a href=&#34;#meet-your-instructor&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;/about/&#34;&gt;Roberto Supe&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;faqs&#34;&gt;FAQs&lt;a href=&#34;#faqs&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;details class=&#34;spoiler&#34; id=&#34;spoiler-9&#34;&gt;&lt;summary&gt;Are there prerequisites?&lt;/summary&gt;&lt;p&gt;There are no prerequisites for the first course.&lt;/p&gt;&lt;/details&gt;
+&lt;details class=&#34;spoiler&#34; id=&#34;spoiler-10&#34;&gt;&lt;summary&gt;How often do the courses run?&lt;/summary&gt;&lt;p&gt;Continuously, at your own pace.&lt;/p&gt;&lt;/details&gt;.
+</description>
+    </item>
+    
+    <item>
+      <title>🗺 Landscape Ecology</title>
+      <link>/course/2021-04-27-landscape-ecology/</link>
+      <pubDate>Tue, 27 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/course/2021-04-27-landscape-ecology/</guid>
+      <description>
+
+
+&lt;h2 id=&#34;what-did-we-covere&#34;&gt;What did we covere&lt;a href=&#34;#what-did-we-covere&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Fundamental &lt;span class=&#34;markup-quote&#34;&gt;raster files&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;markup-quote&#34;&gt;Landscape metrics&lt;/span&gt; with the package landscapemetrics&lt;/li&gt;
+&lt;li&gt;Gain experience with &lt;span class=&#34;markup-quote&#34;&gt;R&lt;/span&gt;, including data visualization with &lt;span class=&#34;markup-quote&#34;&gt;&lt;p&gt;ggplot2 {&lt;/hl&gt;}} and data wrangling with &lt;span class=&#34;markup-quote&#34;&gt;Dplyr&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;program-overview&#34;&gt;Program overview&lt;/h2&gt;
+&lt;p&gt;This short course was created to provide an additional option to quantify landscape configuration using &lt;strong&gt;R&lt;/strong&gt;. The landscape subject to analysis is powerful and can represent any spatial phenomenon. R will quantify, sample, and show the areal extent and spatial configuration of patches within a landscape. We will cover a few important steps for data analysis and visualization. This site was build by Roberto Supe Tulcan (PhD student) and the research team of &lt;a href=&#34;https://www.researchgate.net/profile/Shiliang-Liu-5&#34;&gt;Professor Shiliang Liu&lt;/a&gt;, course coordinator and lecturer of Landscape Ecology at Beijing Normal University.&lt;/p&gt;
+&lt;h2 id=&#34;meet-your-instructor&#34;&gt;Meet your instructor&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;/about/&#34;&gt;Roberto Supe&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;faqs&#34;&gt;FAQs&lt;/h2&gt;
+&lt;details class=&#34;spoiler&#34; id=&#34;spoiler-9&#34;&gt;&lt;summary&gt;Are there prerequisites?&lt;/summary&gt;&lt;p&gt;There are no prerequisites for the first course.&lt;/p&gt;&lt;/details&gt;
+&lt;details class=&#34;spoiler&#34; id=&#34;spoiler-10&#34;&gt;&lt;summary&gt;How often do the courses run?&lt;/summary&gt;&lt;p&gt;Continuously, at your own pace.&lt;/p&gt;&lt;/details&gt;
+&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

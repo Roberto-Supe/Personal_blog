@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>resume | Roberto Supe</title>
+    <link>/tags/resume/</link>
+      <atom:link href="/tags/resume/index.xml" rel="self" type="application/rss+xml" />
+    <description>resume</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Roberto Supe 2021</copyright><lastBuildDate>Sat, 01 May 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/uq.jpg</url>
+      <title>resume</title>
+      <link>/tags/resume/</link>
+    </image>
+    
+    <item>
+      <title>Outstanding Resume with RMarkdown in 30 min</title>
+      <link>/post/2021-05-01-resume/</link>
+      <pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate>
+      <guid>/post/2021-05-01-resume/</guid>
+      <description>&lt;p&gt;R has been updating drastically in recent years. Different packages will help you with the right tools (YAML, CSS, js, fonts) to get sophisticated outputs. We will use &lt;code&gt;pagedown&lt;/code&gt; as a package to design different documents, among them &lt;strong&gt;resumes&lt;/strong&gt;. To make it even easier, efficient, and fast we will use an excellent template and add some modifications to give it a unique style.&lt;/p&gt;
+&lt;p&gt;Major points that you will learn:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pagedown&lt;/li&gt;
+&lt;li&gt;RMarkdown&lt;/li&gt;
+&lt;li&gt;CSS&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;a href=&#34;#installation&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Like any other package, we will need to install the package. You can add the following line of code in your console, R file, RMarkdown file. Similarly, you can go to the &lt;em&gt;Packages&lt;/em&gt; window and type &lt;code&gt;pagedown&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;pagedown&amp;quot;,dependencies = T) # add any required package 
+library(pagedown)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After successfully installed the packages, we will be almost ready to create a resume.&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;preliminary-output&#34;&gt;Preliminary output&lt;a href=&#34;#preliminary-output&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Go to &lt;strong&gt;File-&amp;gt; New File-&amp;gt; R markdown -&amp;gt; From template -&amp;gt; HTML resume {blogdown}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;At this point, you can use the &lt;strong&gt;knit&lt;/strong&gt; bottom, and you will the default template. There are many parts inside the document we could explain all of them, but you will learn faster if you have something that looks and works right. I have used this approach in many situations; you will avoid minor or straightforward errors.&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;modifications&#34;&gt;Modifications&lt;a href=&#34;#modifications&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;After seeing the preliminary output, you can correctly identify the information inside the .Rmd file. To change the image, you need to add the full path to the image, or place it where you saved your .rmd file to use just the name. Something like this will work:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;![caption](my_image.jpg). 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you are happy with the style and content, that will be everything you need to do. &lt;em&gt;How fast and awesome was that !!!&lt;/em&gt; No need to spend a whole day with Word.&lt;/p&gt;
+&lt;p&gt;After you changed the text, you may want to add a few additional points to style it slightly differently.&lt;/p&gt;
+
+
+
+&lt;h3 id=&#34;yalm&#34;&gt;YALM&lt;a href=&#34;#yalm&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;We will need a new &lt;code&gt;.css&lt;/code&gt; file to store all the additions in our Resume. Use Rstudio to create the file by using &lt;strong&gt;File -&amp;gt; New File -&amp;gt; CSS&lt;/strong&gt; file and save it. I named it &lt;code&gt;changes.css&lt;/code&gt;; name it as you wish and follow the template below. Everything that we add here will be joined with the original &lt;code&gt;.css&lt;/code&gt; after the following text in the YAML header of your .Rmd file. The YAML header is at the top of your document. To use our modified CSS file then you need the following. Knit it again to add the css files. Later you only need to add your css modifications, save, and refresh the pop-up window (top corner, to the right of &lt;code&gt;publish&lt;/code&gt;).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;date: &amp;quot;2021-05-09&amp;quot;
+output:
+  pagedown::html_resume:
+    css: 
+      - changes.css         # OVERIDE CERTAIN FUNCTIONS OF CSS
+      - resume               # DEFAULT FILE
+    # set it to true for a self-contained HTML page but it&#39;ll take longer to render
+    self_contained: false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In all your RMarkdown documents, you need to make sure the indent is adequate; otherwise, it will not work, or you will get errors.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;If the &lt;code&gt;viewer&lt;/code&gt; window is too small, click the third icon at the top-left corner of the panel (show in a new window). You can also copy the link appearing in the R Markdown window after you knit the document. It shows something like &amp;ldquo;serving &amp;hellip;.. at &lt;a href=&#34;http://something124&#34;&gt;http://something124&lt;/a&gt;&amp;hellip;.&amp;rdquo;.&lt;/p&gt;
+
+
+
+&lt;h3 id=&#34;css&#34;&gt;CSS&lt;a href=&#34;#css&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The main thing that you need to know is how to identify the structure of the document. With the latest version (0.14), you will get some additional folders, including font, CSS, and other attributes. Go to the folder &lt;code&gt;resume_files&lt;/code&gt; -&amp;gt; &lt;code&gt;paged-0.14&lt;/code&gt; -&amp;gt; &lt;code&gt;css&lt;/code&gt; and open resume.css. That one has all the information that you currently have. If you want to modify something, we will copy and add it to our new CSS file. If we want to add something new, we follow the guides used in the corresponding parts in the default file.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Select your &lt;code&gt;chages.css&lt;/code&gt; file and let&amp;rsquo;s add some awesome changes.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;To override default settings inside the root, add your modification inside &lt;code&gt;{ }&lt;/code&gt; with &lt;code&gt;*&lt;/code&gt; as the name. Something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;* {
+  /* Override default margins*/
+  --pagedjs-margin-right: 0.2in;
+  --pagedjs-margin-left: 0.2in;
+  --pagedjs-margin-top: 0.2in;
+  --pagedjs-margin-bottom: 0.2in;
+  --sidebar-width: 12rem;
+  --sidebar-background-color: #D8F0FF;
+  --decorator-border: 2px solid #a2e2e2; /* change color and thickness of timeline */
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you want to justify all the text, then you can have something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;body {
+    text-align: justify;
+ }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you want to do this change in one place then use &lt;code&gt;divisions&lt;/code&gt; with specific styles &lt;code&gt;&amp;lt;div style=&amp;quot;text-align:justify;&amp;quot;&amp;gt;&lt;/code&gt; some text that will be justified &lt;code&gt;&amp;lt;/div&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We will have more information to add to the sidebar or the body. We can do something like this to maintain the style.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Identify the code inside the default CSS&lt;/li&gt;
+&lt;li&gt;Rename it accordingly, the same in both the .Rmd and changes.css.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I want to add &lt;strong&gt;languages&lt;/strong&gt;, so I did the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    Languages {#languages}
+ -----------------------------------------------------------------------
+  - &amp;lt;i class=&amp;quot;fa fa-language&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Add your text
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notice that we added &lt;code&gt;fa-language&lt;/code&gt; that is a great icon &lt;i class=&#34;fa fa-language&#34;&gt;&lt;/i&gt; from 
+&lt;a href=&#34;https://fontawesome.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Font Awesome&lt;/a&gt; for this part. You can find the complete list 
+&lt;a href=&#34;https://fontawesome.com/icons?d=gallery&amp;amp;p=2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;a href=&#34;#summary&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Create a resume using blogdown template 🔗.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Replace the content with your information ⚠	.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add new categories following the current structure 💬.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Change the style by adding a new CSS file ✅.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;These were some of the steps that I followed to create my &lt;a href=&#34;/media/resume.pdf&#34; target=&#34;_blank&#34;&gt;resumé&lt;/a&gt;. Hopefully, you add different modifications to get excellent results 🏅. If you liked this post, share it with your friends and on your social media. Constantly check my page for more practical and efficient R tutorials.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

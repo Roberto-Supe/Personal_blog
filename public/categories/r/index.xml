@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R | Roberto Supe</title>
+    <link>/categories/r/</link>
+      <atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    <description>R</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Roberto Supe 2021</copyright><lastBuildDate>Sat, 08 May 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/uq.jpg</url>
+      <title>R</title>
+      <link>/categories/r/</link>
+    </image>
+    
+    <item>
+      <title>Create folders and files with for-loop</title>
+      <link>/post/2021-05-08-create-folder/</link>
+      <pubDate>Sat, 08 May 2021 00:00:00 +0000</pubDate>
+      <guid>/post/2021-05-08-create-folder/</guid>
+      <description>&lt;p&gt;As an environmentalist, I have worked with historical data and modeling. Some programs will need you to have individual folders and individual data files with certain extensions for each day, month, year, or study location that you want to analyze. What if your data is in a single file 🤯. Making 10files will be ok, but 2000 will take a while nonetheless; thanks to the power of R, we can do that in a few minutes ⏱.&lt;/p&gt;
+&lt;p&gt;What you will learn:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For-loops&lt;/li&gt;
+&lt;li&gt;Work with excel files&lt;/li&gt;
+&lt;li&gt;Create folder&lt;/li&gt;
+&lt;li&gt;Subset data&lt;/li&gt;
+&lt;li&gt;Write and save text files&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;h2 id=&#34;libraries&#34;&gt;Libraries&lt;a href=&#34;#libraries&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Generally, I like to work with CSV or TXT files. Nonetheless, it is common to have data in excel files. To avoid changing the format, I will use the package &lt;code&gt;readxl&lt;/code&gt; to import .xlsx files.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#install.packages(&amp;quot;readxl&amp;quot;)
+library(readxl)
+library(tidyverse)
+library(utils)
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;excel-files&#34;&gt;Excel files&lt;a href=&#34;#excel-files&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The example file will have two locations, one sheet for each site. For each area, there are multiple variables with daily data between 1979 and 2100. You can get the &lt;a href=&#34;/post/climate_data.xlsx&#34; target=&#34;_blank&#34;&gt;Dataset for this tutorial&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Objective: Have individual text files for each year and locations stored in the corresponding year folder.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+
+&lt;h3 id=&#34;read-excel-files&#34;&gt;Read excel files&lt;a href=&#34;#read-excel-files&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s begin by reading the file&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;data&amp;lt;- readxl::read_excel(&amp;quot;climate_data.xlsx&amp;quot;,sheet = 1,skip = 0)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With the &lt;code&gt;read_excel&lt;/code&gt; you can specify the sheet as well as skip a few rows.&lt;/p&gt;
+
+
+
+&lt;h3 id=&#34;subset-your-data&#34;&gt;Subset your data&lt;a href=&#34;#subset-your-data&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Now, we need to filter the data. We will select the first 4 columns and data from 2000.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dt1 &amp;lt;- dplyr::filter(data[,1:4],Year==2002) #if you get some problems when filtering years, you can use Year=factor(year)
+head(dt1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 4
+##   Year  Day   Maxtemp Mintemp
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;
+## 1 2002  1       -15.6   -23.2
+## 2 2002  2       -14.7   -21.5
+## 3 2002  3       -11     -18.3
+## 4 2002  4       -11.2   -19.4
+## 5 2002  5       -11.2   -18  
+## 6 2002  6        -8.3   -17.5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are many ways to subset your data, but one of the most straightforward ways is using &lt;code&gt;filter&lt;/code&gt; from &lt;code&gt;dplyr&lt;/code&gt;. As I did with data[,1:4], this specifies the dimensions that I want to use data[rows,collumns]. Tip: To remember which one goes first, think of a &lt;span style=&#34;color: red;&#34;&gt;&lt;strong&gt;R&lt;/strong&gt;ed &lt;strong&gt;C&lt;/strong&gt;hicken&lt;/span&gt; (&lt;span style=&#34;color: red;&#34;&gt;&lt;strong&gt;R&lt;/strong&gt;&lt;/span&gt;ows, &lt;span style=&#34;color: red;&#34;&gt;&lt;strong&gt;C&lt;/strong&gt;&lt;/span&gt;olumns).&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This is also one of my favorite packages because you can integrate extended code for data analysis and prosses.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now that we selected our year, we can write the text file that we need.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;write.table(dt1[,2:4], #remove additional variables from your filtered data
+            file=&amp;quot;station_1_year_2000.txt&amp;quot;, #filemane of your file. 
+            #if nested folders then add the folder_name/file_name for each file
+            col.names=T,row.names = F,quote = FALSE) #remove all the row.names and &amp;quot; &amp;quot; from col.names 
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;for-loop&#34;&gt;For-loop&lt;a href=&#34;#for-loop&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;As I said before, we will have many years and locations, so we want to run that for all our data. When something is the same repeated, then for-loops are a great alternative.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;study_year&amp;lt;-min(data$Year):max(data$Year) #store all the years in a new vector
+tail(study_year) # have a look at last five variables
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 2095 2096 2097 2098 2099 2100
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h3 id=&#34;create-folders&#34;&gt;Create folders&lt;a href=&#34;#create-folders&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s create our folders and have a simple example of what we will do with the for-loop. The structure that we need to follow is this &lt;code&gt;for (variable in vector)&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#for (variable in vector) 
+for(year in # year can be any text
+    study_year[1:2]){ #our vector
+  print(as.character(year)) # show me which year the loop is running
+  dir.create(path = paste(year)) # create the folder named by year
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h3 id=&#34;magic&#34;&gt;Magic&lt;a href=&#34;#magic&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;It is common to use guides with for-loops to know which iteration the loop is doing; I used &lt;code&gt;print&lt;/code&gt; to display a message.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;for (j in 1:2) {  # how many pages you have 1:n pages
+  data&amp;lt;-readxl::read_excel(&amp;quot;climate_data.xlsx&amp;quot;,sheet = j)
+  filename = paste(&amp;quot;station &amp;quot;,j,&amp;quot;.txt&amp;quot;,sep = &amp;quot;&amp;quot;) #file name for each i year
+
+  for (i in c(1:length(study_year))){ #i in as many years we got
+  dt1 &amp;lt;- dplyr::filter(data[,1:4],Year==study_year[i]) #filter the data
+  write.table(dt1[,2:4], #remove additional variables from your filtered data
+            file=&amp;quot;station_1_year_2000.txt&amp;quot;, #filemane of your file. 
+            #if nested folders then add the folder_name/file_name for each file
+            col.names=T,row.names = F,quote = FALSE) #remove all the row.names and &amp;quot; &amp;quot; from col.names 
+  print(paste(&amp;quot;done with year&amp;quot;,study_year[i],&amp;quot;Station&amp;quot;,j)) # message
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;a href=&#34;#summary&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Writing files is easy with R and will save you a lot of time. Some of the take away messages and points to follow are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Read your long files 📚.&lt;/li&gt;
+&lt;li&gt;Filter your information 📋.&lt;/li&gt;
+&lt;li&gt;Create folders 📂.&lt;/li&gt;
+&lt;li&gt;Use a for-loop to filter and save to the right folder ✅.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;These were some of the steps that I followed to create over 2000 files. You can replace the extension make sure to change the function, e.g., write.csv(). Hopefully, you have a long data set and you need to create new files soon. You got it under control, and it will just take a few minutes. If you liked this post, share it with your friends and on your social media. Constantly check my page for more practical and efficient R tutorials 👏.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Automated Data Download</title>
+      <link>/post/2021-05-06-download-data/</link>
+      <pubDate>Thu, 06 May 2021 00:00:00 +0000</pubDate>
+      <guid>/post/2021-05-06-download-data/</guid>
+      <description>&lt;p&gt;One of the advantages of R is the ability to get resources directly from source pages. This post will show you some helpful code when you want to get many files from web pages, saving a lot of time and structure everything nicely.&lt;/p&gt;
+&lt;p&gt;What you will learn&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Download pages&lt;/li&gt;
+&lt;li&gt;Create files&lt;/li&gt;
+&lt;li&gt;Replace text&lt;/li&gt;
+&lt;li&gt;Unzip folders&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;h2 id=&#34;libraries&#34;&gt;Libraries&lt;a href=&#34;#libraries&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;There are over 100k packages in R. I will use the &lt;strong&gt;pacman&lt;/strong&gt; package to load multiple libraries inside the function.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#install.packages(pacman)
+#install.packages(purrr)
+pacman::p_load(purrr) #raster, rgdal, rgeos, stringr
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let&amp;rsquo;s find a database. For this example, we will use rainfall data from 
+&lt;a href=&#34;&#34;&gt;chirps&lt;/a&gt;. All my files have links following a pattern, thus making this example plausible. We will identify those similar elements and replace them accordingly.&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;download-a-file&#34;&gt;Download a file&lt;a href=&#34;#download-a-file&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s begin by downloading the following file:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/1987/chirps-v2.0.1987.01.04.tif.gz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We will use the function download.file from utils. If you check its documentation, type &lt;code&gt;?download.file&lt;/code&gt; in your console, the window will say: &lt;em&gt;This function can be used to download a file from the Internet&lt;/em&gt;. Exactly what we want; now we need to add a few elements to make it work &lt;code&gt;url&lt;/code&gt; and &lt;code&gt;destfile&lt;/code&gt; at least.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;file_url &amp;lt;- &amp;quot;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/1982/chirps-v2.0.1982.01.01.tif.gz&amp;quot;
+# file_url &amp;lt;- paste0(&amp;quot;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/&amp;quot;,
+#                    &amp;quot;1998/chirps-v2.0.1998.02.11.tif.gz&amp;quot;)
+download.file(url = file_url,
+              destfile = basename(file_url))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I added two &lt;code&gt;file_url&lt;/code&gt; options; there may be some error if you use the full link. If you do, then paste text without spaces, &lt;code&gt;paste0()&lt;/code&gt;, to build the link.&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;multiple-files&#34;&gt;Multiple files&lt;a href=&#34;#multiple-files&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Our objective is to get multiple files; it could be months, days, or years of data. Then we can follow these steps:&lt;/p&gt;
+
+
+
+&lt;h3 id=&#34;identify-similarities&#34;&gt;Identify similarities&lt;a href=&#34;#identify-similarities&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Identify what is similar for all those paths and store that information as a vector; here, I used &lt;code&gt;pth&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;pth &amp;lt;- &#39;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h3 id=&#34;identify--differences&#34;&gt;Identify  differences&lt;a href=&#34;#identify--differences&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;We see that years and dates are different among files, so we want to create a vector that stores all those values with &lt;code&gt;.&lt;/code&gt; and &lt;code&gt;-&lt;/code&gt; as required.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;year=2016
+dates &amp;lt;- seq(as.Date(paste0(year, &amp;quot;-01-01&amp;quot;)), as.Date(paste0(year, &amp;quot;-12-31&amp;quot;)), by=&amp;quot;days&amp;quot;)
+dates = gsub(pattern = &#39;-&#39;, replacement = &#39;.&#39;, x = as.character(dates))
+data_source&amp;lt;-&#39;/chirps-v2.0.&#39;
+file_extension&amp;lt;-&#39;.tif.gz&#39;
+# join all the parts to have the final links
+paths &amp;lt;- paste0(pth, year, data_source, dates, file_extension)
+head(paths,2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/2016/chirps-v2.0.2016.01.01.tif.gz&amp;quot;
+## [2] &amp;quot;https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/tifs/p05/2016/chirps-v2.0.2016.01.02.tif.gz&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Our links are ready so that we can place them inside the previous function.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;download.file(url = paths,
+              destfile = basename(file_url))
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;function&#34;&gt;Function&lt;a href=&#34;#function&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;We could have many years to build a function to make sure we have the correct files for each year.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Date vector with seq and as.Date&lt;/li&gt;
+&lt;li&gt;Replace strings with gsub&lt;/li&gt;
+&lt;li&gt;Join vectors and strings with paste0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;download_Online_data &amp;lt;- function(year){
+  #print(year) # leave some guides so you know which year, file
+  dates &amp;lt;- seq(as.Date(paste0(year, &amp;quot;-01-01&amp;quot;)), as.Date(paste0(year, &amp;quot;-12-31&amp;quot;)), by=&amp;quot;days&amp;quot;)
+  dates &amp;lt;- gsub(&#39;-&#39;, &#39;.&#39;, as.character(dates))
+  paths &amp;lt;- paste0(pth, year, &#39;/chirps-v2.0.&#39;, dates, &#39;.tif.gz&#39;)
+  
+  lapply(1:length(paths), function(k){
+    download.file(url = paths[k],
+                  destfile = paste0(&#39;.&#39;, basename(paths[k]))) # for this page do not add w as type=&amp;quot;w&amp;quot; it will 
+  })
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h3 id=&#34;selected-data&#34;&gt;Selected data&lt;a href=&#34;#selected-data&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s test the above function to get daily data files between 1990 and 2020&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;year &amp;lt;- 1990:2020
+purrr::map(.x = year, .f = download_Online_data)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You will get a new window and the R will get you the files you need.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;To unzip these files use the following:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;R.utils::gunzip(&amp;quot;path/file_name&amp;quot;, remove = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;a href=&#34;#summary&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Find your links and check their structure 🔗.&lt;/li&gt;
+&lt;li&gt;Create vectors that are match the required links 📁.&lt;/li&gt;
+&lt;li&gt;Use download.file to get your data ⬇	.&lt;/li&gt;
+&lt;li&gt;Add everything into a function to get all the data you need 🔁	.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;These were some of the steps that I followed to get rainfall data from 
+&lt;a href=&#34;https://www.chc.ucsb.edu/data/chirps&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CHIRPS&lt;/a&gt;. Multiple databases will have similar structures; you got some ideas to stop clicking every link you need 💡	. If you liked this post, share it with your friends and on your social media. Constantly check my page for more practical and efficient R tutorials.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Typical herbicide residues, trophic transfer, bioconcentration, and health risk of marine organisms</title>
+      <link>/publication/2021-05-04-atrazine-jzb/</link>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      <guid>/publication/2021-05-04-atrazine-jzb/</guid>
+      <description>&lt;p&gt;Click the &lt;em&gt;Cite&lt;/em&gt; button above to import publication metadata into your reference management software.&lt;/p&gt;
+&lt;p&gt;Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.&lt;/p&gt;
+&lt;p&gt;Supplementary notes can be added 
+&lt;a href=&#34;https://www.sciencedirect.com/science/article/pii/S0160412021001252?via%3Dihub&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Outstanding Resume with RMarkdown in 30 min</title>
+      <link>/post/2021-05-01-resume/</link>
+      <pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate>
+      <guid>/post/2021-05-01-resume/</guid>
+      <description>&lt;p&gt;R has been updating drastically in recent years. Different packages will help you with the right tools (YAML, CSS, js, fonts) to get sophisticated outputs. We will use &lt;code&gt;pagedown&lt;/code&gt; as a package to design different documents, among them &lt;strong&gt;resumes&lt;/strong&gt;. To make it even easier, efficient, and fast we will use an excellent template and add some modifications to give it a unique style.&lt;/p&gt;
+&lt;p&gt;Major points that you will learn:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pagedown&lt;/li&gt;
+&lt;li&gt;RMarkdown&lt;/li&gt;
+&lt;li&gt;CSS&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;a href=&#34;#installation&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Like any other package, we will need to install the package. You can add the following line of code in your console, R file, RMarkdown file. Similarly, you can go to the &lt;em&gt;Packages&lt;/em&gt; window and type &lt;code&gt;pagedown&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;pagedown&amp;quot;,dependencies = T) # add any required package 
+library(pagedown)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After successfully installed the packages, we will be almost ready to create a resume.&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;preliminary-output&#34;&gt;Preliminary output&lt;a href=&#34;#preliminary-output&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Go to &lt;strong&gt;File-&amp;gt; New File-&amp;gt; R markdown -&amp;gt; From template -&amp;gt; HTML resume {blogdown}&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;At this point, you can use the &lt;strong&gt;knit&lt;/strong&gt; bottom, and you will the default template. There are many parts inside the document we could explain all of them, but you will learn faster if you have something that looks and works right. I have used this approach in many situations; you will avoid minor or straightforward errors.&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;modifications&#34;&gt;Modifications&lt;a href=&#34;#modifications&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;After seeing the preliminary output, you can correctly identify the information inside the .Rmd file. To change the image, you need to add the full path to the image, or place it where you saved your .rmd file to use just the name. Something like this will work:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;![caption](my_image.jpg). 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you are happy with the style and content, that will be everything you need to do. &lt;em&gt;How fast and awesome was that !!!&lt;/em&gt; No need to spend a whole day with Word.&lt;/p&gt;
+&lt;p&gt;After you changed the text, you may want to add a few additional points to style it slightly differently.&lt;/p&gt;
+
+
+
+&lt;h3 id=&#34;yalm&#34;&gt;YALM&lt;a href=&#34;#yalm&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;We will need a new &lt;code&gt;.css&lt;/code&gt; file to store all the additions in our Resume. Use Rstudio to create the file by using &lt;strong&gt;File -&amp;gt; New File -&amp;gt; CSS&lt;/strong&gt; file and save it. I named it &lt;code&gt;changes.css&lt;/code&gt;; name it as you wish and follow the template below. Everything that we add here will be joined with the original &lt;code&gt;.css&lt;/code&gt; after the following text in the YAML header of your .Rmd file. The YAML header is at the top of your document. To use our modified CSS file then you need the following. Knit it again to add the css files. Later you only need to add your css modifications, save, and refresh the pop-up window (top corner, to the right of &lt;code&gt;publish&lt;/code&gt;).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;date: &amp;quot;2021-05-09&amp;quot;
+output:
+  pagedown::html_resume:
+    css: 
+      - changes.css         # OVERIDE CERTAIN FUNCTIONS OF CSS
+      - resume               # DEFAULT FILE
+    # set it to true for a self-contained HTML page but it&#39;ll take longer to render
+    self_contained: false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In all your RMarkdown documents, you need to make sure the indent is adequate; otherwise, it will not work, or you will get errors.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;If the &lt;code&gt;viewer&lt;/code&gt; window is too small, click the third icon at the top-left corner of the panel (show in a new window). You can also copy the link appearing in the R Markdown window after you knit the document. It shows something like &amp;ldquo;serving &amp;hellip;.. at &lt;a href=&#34;http://something124&#34;&gt;http://something124&lt;/a&gt;&amp;hellip;.&amp;rdquo;.&lt;/p&gt;
+
+
+
+&lt;h3 id=&#34;css&#34;&gt;CSS&lt;a href=&#34;#css&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The main thing that you need to know is how to identify the structure of the document. With the latest version (0.14), you will get some additional folders, including font, CSS, and other attributes. Go to the folder &lt;code&gt;resume_files&lt;/code&gt; -&amp;gt; &lt;code&gt;paged-0.14&lt;/code&gt; -&amp;gt; &lt;code&gt;css&lt;/code&gt; and open resume.css. That one has all the information that you currently have. If you want to modify something, we will copy and add it to our new CSS file. If we want to add something new, we follow the guides used in the corresponding parts in the default file.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Select your &lt;code&gt;chages.css&lt;/code&gt; file and let&amp;rsquo;s add some awesome changes.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;To override default settings inside the root, add your modification inside &lt;code&gt;{ }&lt;/code&gt; with &lt;code&gt;*&lt;/code&gt; as the name. Something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;* {
+  /* Override default margins*/
+  --pagedjs-margin-right: 0.2in;
+  --pagedjs-margin-left: 0.2in;
+  --pagedjs-margin-top: 0.2in;
+  --pagedjs-margin-bottom: 0.2in;
+  --sidebar-width: 12rem;
+  --sidebar-background-color: #D8F0FF;
+  --decorator-border: 2px solid #a2e2e2; /* change color and thickness of timeline */
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you want to justify all the text, then you can have something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;body {
+    text-align: justify;
+ }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you want to do this change in one place then use &lt;code&gt;divisions&lt;/code&gt; with specific styles &lt;code&gt;&amp;lt;div style=&amp;quot;text-align:justify;&amp;quot;&amp;gt;&lt;/code&gt; some text that will be justified &lt;code&gt;&amp;lt;/div&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We will have more information to add to the sidebar or the body. We can do something like this to maintain the style.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Identify the code inside the default CSS&lt;/li&gt;
+&lt;li&gt;Rename it accordingly, the same in both the .Rmd and changes.css.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I want to add &lt;strong&gt;languages&lt;/strong&gt;, so I did the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    Languages {#languages}
+ -----------------------------------------------------------------------
+  - &amp;lt;i class=&amp;quot;fa fa-language&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Add your text
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notice that we added &lt;code&gt;fa-language&lt;/code&gt; that is a great icon &lt;i class=&#34;fa fa-language&#34;&gt;&lt;/i&gt; from 
+&lt;a href=&#34;https://fontawesome.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Font Awesome&lt;/a&gt; for this part. You can find the complete list 
+&lt;a href=&#34;https://fontawesome.com/icons?d=gallery&amp;amp;p=2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;a href=&#34;#summary&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Create a resume using blogdown template 🔗.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Replace the content with your information ⚠	.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add new categories following the current structure 💬.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Change the style by adding a new CSS file ✅.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;These were some of the steps that I followed to create my &lt;a href=&#34;/media/resume.pdf&#34; target=&#34;_blank&#34;&gt;resumé&lt;/a&gt;. Hopefully, you add different modifications to get excellent results 🏅. If you liked this post, share it with your friends and on your social media. Constantly check my page for more practical and efficient R tutorials.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The effect of human settlement temperature and humidity on the growth rules of infected and recovered cases of COVID-19</title>
+      <link>/publication/a-different-article/</link>
+      <pubDate>Tue, 27 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/publication/a-different-article/</guid>
+      <description>&lt;p&gt;Supplementary notes can be found 
+&lt;a href=&#34;https://doi.org/10.1016/j.envres.2021.111106&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Plant diversity and regeneration potentials in protected area forests of Sierra Leone</title>
+      <link>/publication/2021-05-04-sl-forests/</link>
+      <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>/publication/2021-05-04-sl-forests/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

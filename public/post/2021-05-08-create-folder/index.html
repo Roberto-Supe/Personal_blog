@@ -1,0 +1,1227 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Roberto Supe">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="As an environmentalist, I have worked with historical data and modeling. Some programs will need you to have individual folders and individual data files with certain extensions for each day, month, year, or study location that you want to analyze.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/2021-05-08-create-folder/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#27958d">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/tomorrow.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/tomorrow.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_huc152a58849dcfdf472318931175e1800_34776_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_huc152a58849dcfdf472318931175e1800_34776_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/post/2021-05-08-create-folder/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@RobertoXST">
+  <meta property="twitter:creator" content="@RobertoXST">
+  
+  <meta property="og:site_name" content="Roberto Supe">
+  <meta property="og:url" content="/post/2021-05-08-create-folder/">
+  <meta property="og:title" content="Create folders and files with for-loop | Roberto Supe">
+  <meta property="og:description" content="As an environmentalist, I have worked with historical data and modeling. Some programs will need you to have individual folders and individual data files with certain extensions for each day, month, year, or study location that you want to analyze."><meta property="og:image" content="/post/2021-05-08-create-folder/featured.png">
+  <meta property="twitter:image" content="/post/2021-05-08-create-folder/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-05-08T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2021-05-08T11:57:57&#43;08:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/2021-05-08-create-folder/"
+  },
+  "headline": "Create folders and files with for-loop",
+  
+  "image": [
+    "/post/2021-05-08-create-folder/featured.png"
+  ],
+  
+  "datePublished": "2021-05-08T00:00:00Z",
+  "dateModified": "2021-05-08T11:57:57+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Roberto Supe"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Roberto Supe",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_huc152a58849dcfdf472318931175e1800_34776_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "As an environmentalist, I have worked with historical data and modeling. Some programs will need you to have individual folders and individual data files with certain extensions for each day, month, year, or study location that you want to analyze."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Create folders and files with for-loop | Roberto Supe</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Roberto Supe</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/about"><span>About</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/course"><span>Courses</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/publication"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article">
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Create folders and files with for-loop</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    May 8, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    4 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/2021-05-08-create-folder/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/r/">R</a>, <a href="/categories/tidyverse/">tidyverse</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 432px; max-height: 288px;">
+  <div style="position: relative">
+    <img src="/post/2021-05-08-create-folder/featured.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+  
+  <div class="article-container">
+    
+    <div class="row">
+    
+    <div class="col-12 col-lg-10ish article-style">
+      <p>As an environmentalist, I have worked with historical data and modeling. Some programs will need you to have individual folders and individual data files with certain extensions for each day, month, year, or study location that you want to analyze. What if your data is in a single file 🤯. Making 10files will be ok, but 2000 will take a while nonetheless; thanks to the power of R, we can do that in a few minutes ⏱.</p>
+<p>What you will learn:</p>
+<ul>
+<li>For-loops</li>
+<li>Work with excel files</li>
+<li>Create folder</li>
+<li>Subset data</li>
+<li>Write and save text files</li>
+</ul>
+
+
+
+<h2 id="libraries">Libraries<a href="#libraries"><svg class="anchor-symbol" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="currentColor"></path>
+<path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+</svg></a>
+</h2>
+<p>Generally, I like to work with CSV or TXT files. Nonetheless, it is common to have data in excel files. To avoid changing the format, I will use the package <code>readxl</code> to import .xlsx files.</p>
+<pre><code class="language-r">#install.packages(&quot;readxl&quot;)
+library(readxl)
+library(tidyverse)
+library(utils)
+</code></pre>
+
+
+
+<h2 id="excel-files">Excel files<a href="#excel-files"><svg class="anchor-symbol" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="currentColor"></path>
+<path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+</svg></a>
+</h2>
+<p>The example file will have two locations, one sheet for each site. For each area, there are multiple variables with daily data between 1979 and 2100. You can get the <a href="/post/climate_data.xlsx" target="_blank">Dataset for this tutorial</a></p>
+<blockquote>
+<p>Objective: Have individual text files for each year and locations stored in the corresponding year folder.</p>
+</blockquote>
+
+
+
+<h3 id="read-excel-files">Read excel files<a href="#read-excel-files"><svg class="anchor-symbol" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="currentColor"></path>
+<path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+</svg></a>
+</h3>
+<p>Let&rsquo;s begin by reading the file</p>
+<pre><code class="language-r">data&lt;- readxl::read_excel(&quot;climate_data.xlsx&quot;,sheet = 1,skip = 0)
+</code></pre>
+<p>With the <code>read_excel</code> you can specify the sheet as well as skip a few rows.</p>
+
+
+
+<h3 id="subset-your-data">Subset your data<a href="#subset-your-data"><svg class="anchor-symbol" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="currentColor"></path>
+<path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+</svg></a>
+</h3>
+<p>Now, we need to filter the data. We will select the first 4 columns and data from 2000.</p>
+<pre><code class="language-r">dt1 &lt;- dplyr::filter(data[,1:4],Year==2002) #if you get some problems when filtering years, you can use Year=factor(year)
+head(dt1)
+</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   Year  Day   Maxtemp Mintemp
+##   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 2002  1       -15.6   -23.2
+## 2 2002  2       -14.7   -21.5
+## 3 2002  3       -11     -18.3
+## 4 2002  4       -11.2   -19.4
+## 5 2002  5       -11.2   -18  
+## 6 2002  6        -8.3   -17.5
+</code></pre>
+<p>There are many ways to subset your data, but one of the most straightforward ways is using <code>filter</code> from <code>dplyr</code>. As I did with data[,1:4], this specifies the dimensions that I want to use data[rows,collumns]. Tip: To remember which one goes first, think of a <span style="color: red;"><strong>R</strong>ed <strong>C</strong>hicken</span> (<span style="color: red;"><strong>R</strong></span>ows, <span style="color: red;"><strong>C</strong></span>olumns).</p>
+<blockquote>
+<p>This is also one of my favorite packages because you can integrate extended code for data analysis and prosses.</p>
+</blockquote>
+<p>Now that we selected our year, we can write the text file that we need.</p>
+<pre><code class="language-r">write.table(dt1[,2:4], #remove additional variables from your filtered data
+            file=&quot;station_1_year_2000.txt&quot;, #filemane of your file. 
+            #if nested folders then add the folder_name/file_name for each file
+            col.names=T,row.names = F,quote = FALSE) #remove all the row.names and &quot; &quot; from col.names 
+</code></pre>
+
+
+
+<h2 id="for-loop">For-loop<a href="#for-loop"><svg class="anchor-symbol" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="currentColor"></path>
+<path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+</svg></a>
+</h2>
+<p>As I said before, we will have many years and locations, so we want to run that for all our data. When something is the same repeated, then for-loops are a great alternative.</p>
+<pre><code class="language-r">study_year&lt;-min(data$Year):max(data$Year) #store all the years in a new vector
+tail(study_year) # have a look at last five variables
+</code></pre>
+<pre><code>## [1] 2095 2096 2097 2098 2099 2100
+</code></pre>
+
+
+
+<h3 id="create-folders">Create folders<a href="#create-folders"><svg class="anchor-symbol" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="currentColor"></path>
+<path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+</svg></a>
+</h3>
+<p>Let&rsquo;s create our folders and have a simple example of what we will do with the for-loop. The structure that we need to follow is this <code>for (variable in vector)</code>.</p>
+<pre><code class="language-r">#for (variable in vector) 
+for(year in # year can be any text
+    study_year[1:2]){ #our vector
+  print(as.character(year)) # show me which year the loop is running
+  dir.create(path = paste(year)) # create the folder named by year
+}
+</code></pre>
+
+
+
+<h3 id="magic">Magic<a href="#magic"><svg class="anchor-symbol" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="currentColor"></path>
+<path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+</svg></a>
+</h3>
+<p>It is common to use guides with for-loops to know which iteration the loop is doing; I used <code>print</code> to display a message.</p>
+<pre><code class="language-r">for (j in 1:2) {  # how many pages you have 1:n pages
+  data&lt;-readxl::read_excel(&quot;climate_data.xlsx&quot;,sheet = j)
+  filename = paste(&quot;station &quot;,j,&quot;.txt&quot;,sep = &quot;&quot;) #file name for each i year
+
+  for (i in c(1:length(study_year))){ #i in as many years we got
+  dt1 &lt;- dplyr::filter(data[,1:4],Year==study_year[i]) #filter the data
+  write.table(dt1[,2:4], #remove additional variables from your filtered data
+            file=&quot;station_1_year_2000.txt&quot;, #filemane of your file. 
+            #if nested folders then add the folder_name/file_name for each file
+            col.names=T,row.names = F,quote = FALSE) #remove all the row.names and &quot; &quot; from col.names 
+  print(paste(&quot;done with year&quot;,study_year[i],&quot;Station&quot;,j)) # message
+  }
+}
+</code></pre>
+
+
+
+<h2 id="summary">Summary<a href="#summary"><svg class="anchor-symbol" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="currentColor"></path>
+<path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+</svg></a>
+</h2>
+<p>Writing files is easy with R and will save you a lot of time. Some of the take away messages and points to follow are:</p>
+<ul>
+<li>Read your long files 📚.</li>
+<li>Filter your information 📋.</li>
+<li>Create folders 📂.</li>
+<li>Use a for-loop to filter and save to the right folder ✅.</li>
+</ul>
+<hr>
+<p>These were some of the steps that I followed to create over 2000 files. You can replace the extension make sure to change the function, e.g., write.csv(). Hopefully, you have a long data set and you need to create new files soon. You got it under control, and it will just take a few minutes. If you liked this post, share it with your friends and on your social media. Constantly check my page for more practical and efficient R tutorials 👏.</p>
+
+    </div>
+    
+    <div class="col-12 col-lg-2ish docs-toc">
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#libraries">Libraries</a></li>
+    <li><a href="#excel-files">Excel files</a>
+      <ul>
+        <li><a href="#read-excel-files">Read excel files</a></li>
+        <li><a href="#subset-your-data">Subset your data</a></li>
+      </ul>
+    </li>
+    <li><a href="#for-loop">For-loop</a>
+      <ul>
+        <li><a href="#create-folders">Create folders</a></li>
+        <li><a href="#magic">Magic</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav>
+
+      
+    </div>
+  </div>
+    <div class="col-12 col-lg-10ish article-style">
+    <script src="https://utteranc.es/client.js"
+        repo="rbind/apreshill"
+        issue-term="title"
+        label="comments :crystal_ball:"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+    </div>
+  
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/folders/">folders</a>
+  
+  <a class="badge badge-light" href="/tags/text/">text</a>
+  
+  <a class="badge badge-light" href="/tags/excel/">Excel</a>
+  
+  <a class="badge badge-light" href="/tags/for-loop/">for-loop</a>
+  
+  <a class="badge badge-light" href="/tags/tutorials/">tutorials</a>
+  
+  <a class="badge badge-light" href="/tags/academic/">Academic</a>
+  
+  <a class="badge badge-light" href="/tags/write-files/">write files</a>
+  
+  <a class="badge badge-light" href="/tags/rmarkdown/">RMarkdown</a>
+  
+  <a class="badge badge-light" href="/tags/blogdown/">blogdown</a>
+  
+  <a class="badge badge-light" href="/tags/rmd/">Rmd</a>
+  
+  <a class="badge badge-light" href="/tags/knitr/">knitr</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/2021-05-08-create-folder/&amp;text=Create%20folders%20and%20files%20with%20for-loop" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/2021-05-08-create-folder/&amp;t=Create%20folders%20and%20files%20with%20for-loop" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Create%20folders%20and%20files%20with%20for-loop&amp;body=/post/2021-05-08-create-folder/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/2021-05-08-create-folder/&amp;title=Create%20folders%20and%20files%20with%20for-loop" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Create%20folders%20and%20files%20with%20for-loop%20/post/2021-05-08-create-folder/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/post/2021-05-08-create-folder/&amp;title=Create%20folders%20and%20files%20with%20for-loop" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hu49c03114a9ce8ad2bc0bd62c0ddb3f2a_2072171_270x270_fill_q90_lanczos_center.jpg" alt="Roberto Supe">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="">Roberto Supe</a></h5>
+        <h6 class="card-subtitle">PhD Student of Environmental Science</h6>
+        <p class="card-text">My research interests include Data Analysis, environmental pollution and risk assessment, climate change.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/RobertoXST" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?hl=en&amp;user=FY7aSIUAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/Roberto-Supe" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/xavier-supe-4a4988211/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+<section id="comments">
+  
+    
+
+  
+</section>
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/latex.min.js"></script>
+        
+      
+
+      
+      
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    <a href="/license/">LICENSE: CC-BY-SA <br> <i class="fab fa-creative-commons fa-2x"></i><i class="fab fa-creative-commons-by fa-2x"></i><i class="fab fa-creative-commons-sa fa-2x"></i> </a><br>
+  </p>
+  
+
+  <p class="powered-by">
+    © Roberto Supe 2021 &middot; 
+
+    Made with <i class="far fa-heart" style="color: #06805E"></i>, <a href="https://github.com/rbind/apreshill" target="_blank" rel="noopener"><i class="fas fa-code-branch"></i></a>, the <a href="https://cran.r-project.org/" target="_blank" rel="noopener"><i class="fab fa-r-project"></i> </a><a href="https://github.com/rstudio/blogdown" target="_blank" rel="noopener">blogdown</a> package, and the 
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

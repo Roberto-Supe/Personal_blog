@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tysklind Mats | Roberto Supe</title>
+    <link>/authors/tysklind-mats/</link>
+      <atom:link href="/authors/tysklind-mats/index.xml" rel="self" type="application/rss+xml" />
+    <description>Tysklind Mats</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Roberto Supe 2021</copyright><lastBuildDate>Tue, 04 May 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/uq.jpg</url>
+      <title>Tysklind Mats</title>
+      <link>/authors/tysklind-mats/</link>
+    </image>
+    
+    <item>
+      <title>Typical herbicide residues, trophic transfer, bioconcentration, and health risk of marine organisms</title>
+      <link>/publication/2021-05-04-atrazine-jzb/</link>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      <guid>/publication/2021-05-04-atrazine-jzb/</guid>
+      <description>&lt;p&gt;Click the &lt;em&gt;Cite&lt;/em&gt; button above to import publication metadata into your reference management software.&lt;/p&gt;
+&lt;p&gt;Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.&lt;/p&gt;
+&lt;p&gt;Supplementary notes can be added 
+&lt;a href=&#34;https://www.sciencedirect.com/science/article/pii/S0160412021001252?via%3Dihub&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
