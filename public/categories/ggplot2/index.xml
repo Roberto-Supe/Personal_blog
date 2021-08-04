@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ggplot2 | Roberto Supe</title>
+    <link>https://xaviersupe.netlify.app/categories/ggplot2/</link>
+      <atom:link href="https://xaviersupe.netlify.app/categories/ggplot2/index.xml" rel="self" type="application/rss+xml" />
+    <description>ggplot2</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Roberto Supe 2021</copyright><lastBuildDate>Wed, 04 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://xaviersupe.netlify.app/img/uq.jpg</url>
+      <title>ggplot2</title>
+      <link>https://xaviersupe.netlify.app/categories/ggplot2/</link>
+    </image>
+    
+    <item>
+      <title>Exponential Function</title>
+      <link>https://xaviersupe.netlify.app/post/2021-08-04-exponential-function/</link>
+      <pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>https://xaviersupe.netlify.app/post/2021-08-04-exponential-function/</guid>
+      <description>
+
+
+&lt;h1 id=&#34;dataset&#34;&gt;Dataset&lt;a href=&#34;#dataset&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;Across fields, we want to explore how our data changes with other variables. In many circumstances with an equation that is different from linear. Exponential equations are among the most common ones, and Excel may be one of the straightforward and simplest software to do them. 
+R doesn&amp;rsquo;t have those easy build-in buttons, but with some code, we can make it faster, better, and of course, reproducible. 
+Let&amp;rsquo;s begin by adding our libraries and creating a random data set:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(broom)
+library(tidyverse)
+set.seed(15)
+df=structure(list(x = c(250, 300, 500, 700, 900), 
+                  y = c(8,6,4,2,1)), 
+             .Names = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;), 
+             row.names = c(NA, 5L), class = &amp;quot;data.frame&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we will practice how to add data sets together and bind rows, as well as adding new variables.&lt;/p&gt;
+
+
+
+&lt;h2 id=&#34;equation&#34;&gt;Equation&lt;a href=&#34;#equation&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;df=rbind(df,df)
+df$group=c(rep(&amp;quot;a&amp;quot;,5),rep(&amp;quot;b&amp;quot;,5))
+df$year=c(rep(2015,3),rep(2017,2),rep(2015,2),rep(2017,3))
+variables=c(&amp;quot;group&amp;quot;,&amp;quot;year&amp;quot;) #if you have multiple groups/seasons/years/elements add them here
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This part will do what excel does to get that exponential equation: &lt;strong&gt;lm(log(y) ~ log(x)&lt;/strong&gt;. It actually takes the log of your variables and runs a linear regression.
+We will do that for as many groups as we have and select the values that we want.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;text=df %&amp;gt;% 
+  group_by(across(all_of(variables))) %&amp;gt;% #your grouping variables 
+  do(broom::tidy(lm(log(y) ~ log(x), data = .))) %&amp;gt;%
+  ungroup() %&amp;gt;% 
+  mutate(y = round(ifelse(term==&#39;(Intercept)&#39;,exp(estimate),estimate),digits = 2)) %&amp;gt;%  #your equation values rounded to 2
+  select(-estimate,-std.error,-statistic     ,-p.value) %&amp;gt;% 
+  pivot_wider(names_from = term,values_from = y) %&amp;gt;% 
+  rename(.,a=`(Intercept)`,b=`log(x)`) 
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;r-square&#34;&gt;R-square&lt;a href=&#34;#r-square&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;R&lt;sup&gt;2&lt;/sup&gt; is also essential; in the same way, we will use some functions and calculate that for multiple groups.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rsq=df %&amp;gt;%
+  split(list(.$group,.$year)) %&amp;gt;% #---- HERE add the names after $
+  map(~lm(log(y) ~ log(x), data = .)) %&amp;gt;%
+  map(summary) %&amp;gt;%
+  map_dbl(&amp;quot;r.squared&amp;quot;) %&amp;gt;% 
+  data.frame() 
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;data-and-equations&#34;&gt;Data and equations&lt;a href=&#34;#data-and-equations&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Now, let&amp;rsquo;s join those data sets and write the equations for our plots.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#Join the R2 and y results for the plot in a single data frame and write the equations
+labels.df=mutate(rsq,groups=row.names(rsq)) %&amp;gt;% 
+  separate(col = groups,into = c(variables),sep = &amp;quot;[.]&amp;quot;,
+         convert = TRUE, remove = T, fill = &amp;quot;right&amp;quot;) %&amp;gt;% 
+  rename(&amp;quot;R&amp;quot;=&#39;.&#39;) %&amp;gt;% 
+  left_join(text,.,by = c(&amp;quot;group&amp;quot;, &amp;quot;year&amp;quot;)) %&amp;gt;% 
+  mutate(R=round(R,digits = 4), #round your R2 digits
+    eq= paste(&#39;y==&#39;,a,&amp;quot;~x^(&amp;quot;,b,&amp;quot;)&amp;quot;, sep = &amp;quot;&amp;quot;),
+         rsql=paste(&amp;quot;R^2==&amp;quot;,R),
+         full= paste(&#39;y==&#39;,a,&amp;quot;~x^(&amp;quot;,b,&amp;quot;)&amp;quot;,&amp;quot;~~R^2==&amp;quot;,R, sep = &amp;quot;&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;plots&#34;&gt;Plots&lt;a href=&#34;#plots&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;I use ggplot2 to draw most of my plots; the following code will give you some good-looking figures and save you a lot of time if you have many variables.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot(df,aes(x = x,y = y)) +
+  geom_point(size=4,mapping = aes(
+    colour=factor(ifelse(is.na(get(variables[2])),&amp;quot;&amp;quot;,(get(variables[2])))), #points colour
+    shape=get(variables[1]))) + # different shapes
+  facet_wrap(get(variables[1])~ifelse(is.na(get(variables[2])),&amp;quot;&amp;quot;,get(variables[2])),
+             scales = &amp;quot;free&amp;quot;,labeller = labeller(.multi_line = F))+ #for multiple groups; join text in one line
+  stat_smooth(mapping=aes(colour=get(variables[1])), #colours for our trend
+              method = &#39;nls&#39;, formula = &#39;y~a*x^b&#39;, 
+              method.args = list(start=c(a=1,b=1)),se=FALSE) +
+  geom_text(labels.df,x = Inf, y = Inf,size=5, mapping = aes(label = (eq)), parse = T,vjust=1, hjust=1)+
+  geom_text(labels.df,x = Inf,#ifelse(labels.df$Year==&amp;quot;2018&amp;quot;,1000,ifelse(labels.df$Year==&amp;quot;2019&amp;quot;,40,100)),
+            y = Inf,size=5, mapping = aes(label = (rsql)), parse = T,vjust=2.5, hjust=1)+
+  #scale_y_log10() + #add this to avoid problems with big y values
+  labs(x=&amp;quot;Your x label&amp;quot;,y=&amp;quot;your y label&amp;quot;)+
+  theme_bw(base_size = 16) +
+  theme(legend.position = &amp;quot;none&amp;quot;,
+        strip.background = element_rect(fill=&amp;quot;#b2d6e2&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://xaviersupe.netlify.app/post/2021-08-04-exponential-function/index_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Some plots don&amp;rsquo;t have a regression because of limited points or linear relationships&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Well, that is what you need to get those equations, statistics, and figures. You can change different parts for further analysis or meet your requirements.&lt;/p&gt;
+
+
+
+&lt;h1 id=&#34;just-the-code&#34;&gt;Just the code&lt;a href=&#34;#just-the-code&#34;&gt;&lt;svg class=&#34;anchor-symbol&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+&lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+&lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;With your dataset, use these steps to get your results. Also, change the variables name used in &lt;em&gt;rsq&lt;/em&gt; calculations accordingly.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;df= #change your data frame so it fits the current code
+variables=c(&amp;quot;group&amp;quot;,&amp;quot;year&amp;quot;) #if you have multiple groups/seasons/years/elements add them here
+df$y= #which variable will be your y 
+df$x= #which variable will be your x 
+
+#No changes get the equations
+text=df %&amp;gt;% 
+  group_by(across(all_of(variables))) %&amp;gt;% #your grouping variables 
+  do(broom::tidy(lm(log(y) ~ log(x), data = .))) %&amp;gt;%
+  ungroup() %&amp;gt;% 
+  mutate(y = round(ifelse(term==&#39;(Intercept)&#39;,exp(estimate),estimate),digits = 2)) %&amp;gt;%  #your equation values rounded to 2
+  select(-estimate,-std.error,-statistic     ,-p.value) %&amp;gt;% 
+  pivot_wider(names_from = term,values_from = y) %&amp;gt;% 
+  rename(.,a=`(Intercept)`,b=`log(x)`) 
+#CHANGE before running!! add your grouping variables
+rsq=df %&amp;gt;%
+  split(list(.$group,.$year)) %&amp;gt;% #---- HERE add the names after $
+  map(~lm(log(y) ~ log(x), data = .)) %&amp;gt;%
+  map(summary) %&amp;gt;%
+  map_dbl(&amp;quot;r.squared&amp;quot;) %&amp;gt;% 
+  data.frame() 
+#Join the R2 and y results for the plot in a single data frame and write the equations
+labels.df=mutate(rsq,groups=row.names(rsq)) %&amp;gt;% 
+  separate(col = groups,into = c(variables),sep = &amp;quot;[.]&amp;quot;,
+         convert = TRUE, remove = T, fill = &amp;quot;right&amp;quot;) %&amp;gt;% 
+  rename(&amp;quot;R&amp;quot;=&#39;.&#39;) %&amp;gt;% 
+  left_join(text,.) %&amp;gt;% 
+  mutate(R=round(R,digits = 4), #round your R2 digits
+    eq= paste(&#39;y==&#39;,a,&amp;quot;~x^(&amp;quot;,b,&amp;quot;)&amp;quot;, sep = &amp;quot;&amp;quot;),
+         rsql=paste(&amp;quot;R^2==&amp;quot;,R),
+         full= paste(&#39;y==&#39;,a,&amp;quot;~x^(&amp;quot;,b,&amp;quot;)&amp;quot;,&amp;quot;~~R^2==&amp;quot;,R, sep = &amp;quot;&amp;quot;))
+# plot 
+ggplot(df,aes(x = x,y = y)) +
+  geom_point(size=4,mapping = aes(
+    colour=factor(ifelse(is.na(get(variables[2])),&amp;quot;&amp;quot;,(get(variables[2])))), #points colour
+    shape=get(variables[1]))) + # different shapes
+  facet_wrap(get(variables[1])~ifelse(is.na(get(variables[2])),&amp;quot;&amp;quot;,get(variables[2])),
+             scales = &amp;quot;free&amp;quot;,labeller = labeller(.multi_line = F))+ #for multiple groups; join text in one line
+  stat_smooth(mapping=aes(colour=get(variables[1])), #colours for our trend
+              method = &#39;nls&#39;, formula = &#39;y~a*x^b&#39;, 
+              method.args = list(start=c(a=1,b=1)),se=FALSE) +
+  geom_text(labels.df,x = Inf, y = Inf,size=5, mapping = aes(label = (eq)), parse = T,vjust=1, hjust=1)+
+  geom_text(labels.df,x = Inf,#ifelse(labels.df$Year==&amp;quot;2018&amp;quot;,1000,ifelse(labels.df$Year==&amp;quot;2019&amp;quot;,40,100)),
+            y = Inf,size=5, mapping = aes(label = (rsql)), parse = T,vjust=2.5, hjust=1)+
+  #scale_y_log10() + #add this to avoid problems with big y values
+  labs(x=&amp;quot;Your x label&amp;quot;,y=&amp;quot;your y label&amp;quot;)+
+  theme_bw(base_size = 16) +
+  theme(legend.position = &amp;quot;none&amp;quot;,
+        strip.background = element_rect(fill=&amp;quot;#b2d6e2&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

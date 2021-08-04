@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sierra Leone | Roberto Supe</title>
+    <link>https://xaviersupe.netlify.app/tags/sierra-leone/</link>
+      <atom:link href="https://xaviersupe.netlify.app/tags/sierra-leone/index.xml" rel="self" type="application/rss+xml" />
+    <description>Sierra Leone</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Roberto Supe 2021</copyright><lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://xaviersupe.netlify.app/img/uq.jpg</url>
+      <title>Sierra Leone</title>
+      <link>https://xaviersupe.netlify.app/tags/sierra-leone/</link>
+    </image>
+    
+    <item>
+      <title>Seasonal wildfire outbreak trend and its consequences on forest biodiversity and the environment: a case study of Sierra Leone</title>
+      <link>https://xaviersupe.netlify.app/publication/wildfire/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>https://xaviersupe.netlify.app/publication/wildfire/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
