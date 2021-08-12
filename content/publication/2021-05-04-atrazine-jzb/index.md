@@ -33,7 +33,7 @@ publication_short: ""
 publication_types:
 - "2"
 publishDate: "2017-01-01T00:00:00Z"
-slides: example
+slides: ''
 summary: This article study ecological and human health risks of atrazine in the Jiozhou Bay, China
 title: Typical herbicide residues, trophic transfer, bioconcentration, and health risk of marine organisms
 url_code: ""
