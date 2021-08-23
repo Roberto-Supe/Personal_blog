@@ -1,5 +1,5 @@
 ---
-title: Exponential Function
+title: Exponential Functions
 author: admin
 date: '2021-08-04'
 slug: []
@@ -125,7 +125,7 @@ ggplot(df,aes(x = x,y = y)) +
   geom_text(labels.df,x = Inf,#ifelse(labels.df$Year=="2018",1000,ifelse(labels.df$Year=="2019",40,100)),
             y = Inf,size=5, mapping = aes(label = (rsql)), parse = T,vjust=2.5, hjust=1)+
   #scale_y_log10() + #add this to avoid problems with big y values
-  labs(x="Your x label",y="your y label")+
+  labs(x="Your x label",y="Your y label")+
   theme_bw(base_size = 16) +
   theme(legend.position = "none",
         strip.background = element_rect(fill="#b2d6e2"))
@@ -148,7 +148,7 @@ variables=c("group","year") #if you have multiple groups/seasons/years/elements 
 df$y= #which variable will be your y 
 df$x= #which variable will be your x 
 
-#No changes get the equations
+#No changes to get the equations
 text=df %>% 
   group_by(across(all_of(variables))) %>% #your grouping variables 
   do(broom::tidy(lm(log(y) ~ log(x), data = .))) %>%
@@ -157,7 +157,7 @@ text=df %>%
   select(-estimate,-std.error,-statistic     ,-p.value) %>% 
   pivot_wider(names_from = term,values_from = y) %>% 
   rename(.,a=`(Intercept)`,b=`log(x)`) 
-#CHANGE before running!! add your grouping variables
+# --CHANGE before running!!-- add your grouping variables
 rsq=df %>%
   split(list(.$group,.$year)) %>% #---- HERE add the names after $
   map(~lm(log(y) ~ log(x), data = .)) %>%
@@ -189,7 +189,7 @@ ggplot(df,aes(x = x,y = y)) +
             y = Inf,size=5, mapping = aes(label = (rsql)), parse = T,vjust=2.5, hjust=1)+
   #scale_y_log10() + #add this to avoid problems with big y values
   labs(x="Your x label",y="your y label")+
-  theme_bw(base_size = 16) +
+  theme_bw(base_size = 15) +
   theme(legend.position = "none",
         strip.background = element_rect(fill="#b2d6e2"))
 ```

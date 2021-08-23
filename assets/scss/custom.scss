@@ -17,8 +17,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* links */
 
-a:active, 
-a:focus, 
+a:active,
+a:focus,
 a:hover {
   color: #004346;
 }
@@ -94,7 +94,7 @@ a:hover {
 }
 
 .home-section:not(:first-of-type) {
-  padding: 25px 0 50px 0; 
+  padding: 25px 0 50px 0;
 }
 
 /* this erases the margin-bottom for h1 */
@@ -132,8 +132,8 @@ pre {
   border-radius: 0px; /*undo rounded corners*/
 }
 
-pre code { 
-  background: none; 
+pre code {
+  background: none;
   font-size: 0.8rem;
 }
 
@@ -251,11 +251,11 @@ hr {
     margin-left: auto;
     margin-right: auto;
  }
- 
+
 .home-section.wg-experience .card-body {
 	padding: .5rem;
 }
- 
+
 .home-section.wg-experience .card .card-text{
   padding: 0;
 }
@@ -322,12 +322,12 @@ iframe {
   max-width:20%;
   padding-right: 0px !important;
  }
- 
+
 .col-lg-10ish {
   flex:0 0 80%;
   max-width:80%;
  }
- 
+
 #TableOfContents li a, .toc-top li a {
 	padding: .125rem .5rem;
 	font-size: .8rem;
@@ -374,4 +374,108 @@ a > svg.anchor-symbol {
 a > svg.anchor-symbol:hover {
   fill: #06805E;
   transition: fill 0.6s ease;
+}
+
+
+.gallery {
+    /* font-size: 0; */
+    display: grid;
+        gap: 0.5em;
+        grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+}
+
+.gallery a[data-fancybox] img {
+    height: 250px;
+    width: auto;
+    max-width: inherit;
+    display: inherit;
+    margin: 5px;
+    padding: 4px;
+    vertical-align: inherit;
+}
+
+@keyframes yourfirstanimation {
+  from {
+    opacity: 0;
+    color: red;
+  }
+  to {
+    opacity: 1;
+    color: black;
+  }
+}
+
+.biography-title {
+  animation: yourfirstanimation 5s forwards;
+}
+
+#about {
+  @keyframes yourfirstanimation {
+    0% {
+      opacity: 0;
+      color: red;
+    }
+    100% {
+      opacity: 1;
+      color: black;
+    }
+  }
+
+  .biography-title {
+    animation: yourfirstanimation 5s forwards;
+  }
+}
+
+@keyframes slide-from-right {
+  0% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.biography-title {
+  animation: slide-from-right 1s forwards;
+}
+
+.main-content {
+  animation: slide-from-left 1s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+  animation-delay: 100ms;
+}
+@keyframes slide-from-left {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+#profile {
+  animation: slide-from-right 1s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+}
+
+#introInfo {
+  animation: slide-from-left 1s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.col-md-5 {
+  opacity: 0;
+  animation: fade-in 1s forwards;
+  animation-delay: 1s;
+}
+
+.col-md-7 {
+  opacity: 0;
+  animation: fade-in 1s forwards;
+  animation-delay: 1.5s;
 }

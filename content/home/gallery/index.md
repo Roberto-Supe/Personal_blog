@@ -1,7 +1,7 @@
 ---
 # An instance of the Blank widget with a Gallery page element.
 # Documentation: https://wowchemy.com/docs/getting-started/page-builder/
-widget: blank
+widget: portfolio
 
 # This file represents a page section.
 headless: true
@@ -10,9 +10,10 @@ headless: true
 weight: 66
 
 title: Gallery
-subtitle: 'Some of the graphs I made'
+subtitle: 'Some of my works'
 design:
   columns: "1"
+
 ---
 
  {{< gallery >}}
