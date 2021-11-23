@@ -34,7 +34,7 @@ publishDate: '2021-11-21T16:15:30+08:00'
 publication_types:
   - '2'
 publication_short: ''
-featured: no
+featured: yes
 url_pdf: ~
 url_code: ~
 url_dataset: ~
