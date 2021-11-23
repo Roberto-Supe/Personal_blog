@@ -22,7 +22,7 @@ tags:
   - Range plot
   - lognormal distribution
 doi: "https://doi.org/10.1016/j.envint.2021.106500"
-featured: true
+featured: false
 image:
   caption: '[Graphical Abstract](https://doi.org/10.1016/j.envint.2021.106500)'
   focal_point: ""
@@ -34,7 +34,7 @@ publication_types:
 - "2"
 publishDate: "2017-01-01T00:00:00Z"
 slides: ''
-summary: This article study ecological and human health risks of atrazine in the Jiozhou Bay, China
+summary: This article study ecological and human health risks of atrazine in Jiozhou Bay, China
 title: Typical herbicide residues, trophic transfer, bioconcentration, and health risk of marine organisms
 url_code: ""
 url_dataset: ""
