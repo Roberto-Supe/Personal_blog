@@ -8,7 +8,7 @@ authors:
 - admin
 - Zhang Lei 
 - Demelash Tsedale
-- Xu, Yinlong
+- Xu Yinlong
 date: '2021-08-12'
 slug: []
 categories:
@@ -46,7 +46,7 @@ image:
   focal_point: ''
   preview_only: false
 projects: []
-publication: '*Atmosphere*, 12 (8)'
+publication: '*Atmosphere*, 12(8)'
 slides: ''
 ---
 

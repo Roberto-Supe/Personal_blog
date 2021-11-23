@@ -14,16 +14,11 @@ tags:
   - Africa
   - wildfire
 subtitle: ''
-summary: ''
 authors:
 - Moses Fayiah
 - admin
 lastmod: '2021-08-02T10:24:03+08:00'
 featured: no
-image:
-  caption: ''
-  focal_point: ''
-  preview_only: no
 doi: "http://www.conscientiabeam.com/pdf-files/ene/13/IJSEER202110(2)69-84.pdf"
 image:
   caption: '[Graphical Abstract]()'

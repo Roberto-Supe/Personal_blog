@@ -26,7 +26,7 @@ image:
   focal_point: ''
   preview_only: false
 projects: []
-publication: '*Environment Research*, 191'
+publication: '*Environment Research*, 197:111106'
 publication_short: ""
 publication_types:
 - "2"
@@ -38,7 +38,7 @@ url_dataset: ""
 url_pdf: ""
 url_poster: ""
 url_project: ""
-url_slides: ""
+url_slides: "" 
 url_source: ""
 url_video: ""
 ---
