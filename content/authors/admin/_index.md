@@ -11,7 +11,7 @@ education:
   - course: BSc in Marine Biology and Genetics
     institution: The University of Queensland
     year: 2017
-email: "202039180004@bnu.edu.cn"
+email: "xavysup.1@outlook.com"
 highlight_name: false
 interests:
 - Data Analysis
