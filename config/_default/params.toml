@@ -81,7 +81,7 @@ edit_page = {repo_url = "", content_dir = "", repo_branch = "master", editable =
 ############################
 
 # Enter contact details (optional). To hide a field, clear it to "".
-email = <mailto:xavysup.1@outlook.com>
+email = "mailto:xavysup.1@outlook.com"
 phone = "+86 15652320121"
 
 # Address
