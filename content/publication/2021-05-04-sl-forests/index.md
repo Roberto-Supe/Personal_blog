@@ -24,9 +24,9 @@ tags:
   - Simpson diversity
   - DBH
   - Species richness
-doi: "10.18488/journal.68.2020.72.64.83"
+doi: "https://doi.org/10.18488/journal.68.2020.72.64.83"
 image:
-  caption: '[Graphical Abstract](10.18488/journal.68.2020.72.64.83)'
+  caption: '[Graphical Abstract](https://doi.org/10.18488/journal.68.2020.72.64.83)'
   focal_point: ""
   preview_only: false
 projects: []

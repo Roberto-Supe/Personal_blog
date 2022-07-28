@@ -19,9 +19,9 @@ authors:
 - admin
 lastmod: '2021-08-02T10:24:03+08:00'
 featured: no
-doi: "http://www.conscientiabeam.com/pdf-files/ene/13/IJSEER202110(2)69-84.pdf"
+doi: "https://doi.org/10.18488/journal.13.2021.102.69.84"
 image:
-  caption: '[Graphical Abstract]()'
+  caption: '[Graphical Abstract](https://doi.org/10.18488/journal.13.2021.102.69.84)'
   focal_point: ""
   preview_only: false
 projects: []
